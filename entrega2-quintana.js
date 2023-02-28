@@ -7,16 +7,16 @@ const test = async () => {
 	// console.log(firstQuery);
 
 	const product = {
-		title: "producto de prueba",
+		title: "producto de prueba 2",
 		description: "Este es un producto de prueba",
-		price: 200,
+		price: 100,
 		thumbnail: "Sin imagen",
-		code: "abc123",
-		stock: 25,
+		code: "abc987",
+		stock: 10,
 	};
 
-	// let secondQuery = await manager.addProduct(product);
-	// console.log(secondQuery);
+	let secondQuery = await manager.addProduct(product);
+	console.log(secondQuery);
 
 	let thirdQuery = await manager.getProducts();
 	console.log(thirdQuery);
@@ -27,12 +27,15 @@ const test = async () => {
 	// let fifthQuery = await manager.getProductById(2);
 	// console.log(fifthQuery);
 
-	let sixthQuery = await manager.updateProduct(1, {
-		stock: 50,
-		price: 1000,
-		thumbnail: "Sin imagen",
-	});
-	console.log(sixthQuery);
+	// let sixthQuery = await manager.updateProduct(1, {
+	// 	stock: 50,
+	// 	price: 1000,
+	// 	thumbnail: "Sin imagen",
+	// });
+	// console.log(sixthQuery);
+
+	// let sevenQuery = await manager.deleteProduct(1);
+	// console.log(sevenQuery);
 };
 
 test();

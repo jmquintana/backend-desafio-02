@@ -17,15 +17,6 @@ export default class ProductManager {
 	};
 
 	addProduct = async (newProduct) => {
-		// const product = {
-		// 	title,
-		// 	description,
-		// 	price,
-		// 	thumbnail,
-		// 	code,
-		// 	stock,
-		// };
-
 		const products = await this.getProducts();
 
 		const productIndex = products.findIndex(
@@ -79,6 +70,21 @@ export default class ProductManager {
 			...{ id: productId },
 		};
 		return this.addProduct(updatedProduct);
+	};
+
+	deleteProduct = async (productId) => {
+		const product = await this.getProductById(productId);
+		const products = await this.getProducts();
+		const newProducts = products.filter((element) => element.id !== productId);
+		await fs.promises.writeFile(
+			this.path,
+			JSON.stringify(newProducts, null, "\t")
+		);
+
+		if (products.length - newProducts.length === 1) {
+			console.log("Product deleted");
+		}
+		return product;
 	};
 
 	getStock = (productCode) => {
