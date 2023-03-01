@@ -15,24 +15,24 @@ const test = async () => {
 		stock: 20,
 	};
 
-	// let secondQuery = await manager.addProduct(product);
-	// console.log(secondQuery);
+	let secondQuery = await manager.addProduct(product);
+	console.log(secondQuery);
 
-	// let thirdQuery = await manager.getProducts();
-	// console.log(thirdQuery);
+	let thirdQuery = await manager.getProducts();
+	console.log(thirdQuery);
 
-	// let forthQuery = await manager.getProductById(1);
-	// console.log(forthQuery);
+	let forthQuery = await manager.getProductById(1);
+	console.log(forthQuery);
 
-	// let fifthQuery = await manager.getProductById(3);
-	// console.log(fifthQuery);
+	let fifthQuery = await manager.getProductById(3);
+	console.log(fifthQuery);
 
-	// let sixthQuery = await manager.updateProduct(1, {
-	// 	stock: 50,
-	// 	price: 1000,
-	// 	thumbnail: "Sin imagen",
-	// });
-	// console.log(sixthQuery);
+	let sixthQuery = await manager.updateProduct(1, {
+		stock: 50,
+		price: 1000,
+		thumbnail: "Sin imagen",
+	});
+	console.log(sixthQuery);
 
 	let sevenQuery = await manager.deleteProduct(1);
 	console.log(sevenQuery);
