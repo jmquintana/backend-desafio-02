@@ -6,6 +6,10 @@ export default class ProductManager {
 		this.path = "./files/products.json";
 	}
 
+	#writeFile = async (content) => {
+		await fs.promises.writeFile(this.path, JSON.stringify(content, null, "\t"));
+	};
+
 	getProducts = async () => {
 		if (!fs.existsSync(this.path)) return [];
 		try {
@@ -37,10 +41,7 @@ export default class ProductManager {
 			return;
 		}
 
-		await fs.promises.writeFile(
-			this.path,
-			JSON.stringify(products, null, "\t")
-		);
+		this.#writeFile(products);
 		return newProduct;
 	};
 
@@ -78,10 +79,7 @@ export default class ProductManager {
 				(product) => product.id === productId
 			);
 			products[productIndex] = updatedProduct;
-			await fs.promises.writeFile(
-				this.path,
-				JSON.stringify(products, null, "\t")
-			);
+			this.#writeFile(products);
 			console.log("Product updated!");
 			return updatedProduct;
 		}
@@ -91,14 +89,11 @@ export default class ProductManager {
 		const product = await this.getProductById(productId);
 		const products = await this.getProducts();
 		const newProducts = products.filter((element) => element.id !== productId);
-		await fs.promises.writeFile(
-			this.path,
-			JSON.stringify(newProducts, null, "\t")
-		);
+		this.#writeFile(newProducts);
 
-		if (products.length - newProducts.length === 1) {
+		if (products.length - newProducts.length > 0)
 			console.log("Product deleted!");
-		}
+
 		return product;
 	};
 }

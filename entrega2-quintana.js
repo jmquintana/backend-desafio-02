@@ -9,22 +9,22 @@ const test = async () => {
 	const product = {
 		title: "producto de prueba 2",
 		description: "Este es un producto de prueba",
-		price: 100,
+		price: 200,
 		thumbnail: "Sin imagen",
 		code: "abc123",
-		stock: 50,
+		stock: 20,
 	};
 
-	let secondQuery = await manager.addProduct(product);
-	console.log(secondQuery);
+	// let secondQuery = await manager.addProduct(product);
+	// console.log(secondQuery);
 
-	let thirdQuery = await manager.getProducts();
-	console.log(thirdQuery);
+	// let thirdQuery = await manager.getProducts();
+	// console.log(thirdQuery);
 
 	// let forthQuery = await manager.getProductById(1);
 	// console.log(forthQuery);
 
-	// let fifthQuery = await manager.getProductById(2);
+	// let fifthQuery = await manager.getProductById(3);
 	// console.log(fifthQuery);
 
 	// let sixthQuery = await manager.updateProduct(1, {
@@ -34,8 +34,8 @@ const test = async () => {
 	// });
 	// console.log(sixthQuery);
 
-	// let sevenQuery = await manager.deleteProduct(1);
-	// console.log(sevenQuery);
+	let sevenQuery = await manager.deleteProduct(1);
+	console.log(sevenQuery);
 };
 
 test();
