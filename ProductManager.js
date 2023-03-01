@@ -7,11 +7,13 @@ export default class ProductManager {
 	}
 
 	getProducts = async () => {
-		if (fs.existsSync(this.path)) {
+		if (!fs.existsSync(this.path)) return [];
+		try {
 			const data = await fs.promises.readFile(this.path, "utf-8");
 			const result = JSON.parse(data);
 			return result;
-		} else {
+		} catch (error) {
+			console.log(`Error reading file. ${error}`);
 			return [];
 		}
 	};
@@ -31,9 +33,8 @@ export default class ProductManager {
 			}
 			products.push(newProduct);
 		} else {
-			console.log("Product found!!");
-			products[productIndex] = newProduct;
-			console.log("Product updated");
+			console.log("Product already exist! You may update it.");
+			return;
 		}
 
 		await fs.promises.writeFile(
@@ -52,8 +53,8 @@ export default class ProductManager {
 			);
 
 			if (productIndex === -1) {
-				// console.error("Product not found");
-				return "Product not found";
+				console.error("Product not found.");
+				return;
 			} else {
 				return result[productIndex];
 			}
@@ -64,12 +65,26 @@ export default class ProductManager {
 
 	updateProduct = async (productId, newProperties) => {
 		const product = await this.getProductById(productId);
-		const updatedProduct = {
-			...product,
-			...newProperties,
-			...{ id: productId },
-		};
-		return this.addProduct(updatedProduct);
+		const products = await this.getProducts();
+		if (!product) {
+			return;
+		} else {
+			const updatedProduct = {
+				...product,
+				...newProperties,
+			};
+			updatedProduct.id = productId;
+			const productIndex = products.findIndex(
+				(product) => product.id === productId
+			);
+			products[productIndex] = updatedProduct;
+			await fs.promises.writeFile(
+				this.path,
+				JSON.stringify(products, null, "\t")
+			);
+			console.log("Product updated!");
+			return updatedProduct;
+		}
 	};
 
 	deleteProduct = async (productId) => {
@@ -82,7 +97,7 @@ export default class ProductManager {
 		);
 
 		if (products.length - newProducts.length === 1) {
-			console.log("Product deleted");
+			console.log("Product deleted!");
 		}
 		return product;
 	};

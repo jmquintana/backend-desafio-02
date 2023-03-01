@@ -3,16 +3,16 @@ import ProductManager from "./ProductManager.js";
 const manager = new ProductManager();
 
 const test = async () => {
-	// let firstQuery = await manager.getProducts();
-	// console.log(firstQuery);
+	let firstQuery = await manager.getProducts();
+	console.log(firstQuery);
 
 	const product = {
 		title: "producto de prueba 2",
 		description: "Este es un producto de prueba",
 		price: 100,
 		thumbnail: "Sin imagen",
-		code: "abc987",
-		stock: 10,
+		code: "abc123",
+		stock: 50,
 	};
 
 	let secondQuery = await manager.addProduct(product);
