@@ -101,16 +101,4 @@ export default class ProductManager {
 		}
 		return product;
 	};
-
-	getStock = (productCode) => {
-		const productIndex = this.products.findIndex(
-			(product) => product.code === productCode
-		);
-
-		if (productIndex === -1) {
-			return 0;
-		} else {
-			return this.products[productIndex].stock;
-		}
-	};
 }
